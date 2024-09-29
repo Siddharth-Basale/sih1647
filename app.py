@@ -1,8 +1,3 @@
-# -*- c oding: utf-8 -*-
-"""
-Created on Sat Mar  2 21:46:27 2019
-@author: PRATYUSH, Rahul, Somya, Abhay
-"""
 import sklearn
 import numpy as np
 import pandas as pd
@@ -11,7 +6,7 @@ import random
 import streamlit as st
 from sklearn.tree import DecisionTreeRegressor
 
-# Commodity data paths
+
 commodity_dict = {
     "arhar": "static/Arhar.csv",
     "gram": "static/Gram.csv",
@@ -74,7 +69,6 @@ class Commodity:
         a = self.name.split('.')
         return a[0]
 
-# Top 5 Winners Function
 def TopFiveWinners():
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -101,7 +95,6 @@ def TopFiveWinners():
 
     return to_send
 
-# Top 5 Losers Function
 def TopFiveLosers():
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -128,7 +121,6 @@ def TopFiveLosers():
 
     return to_send
 
-# 6 Months Forecast Helper
 def SixMonthsForecastHelper(name):
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -157,8 +149,6 @@ def SixMonthsForecastHelper(name):
         crop_price.append([x, round((wpis[i] * base[name.capitalize()]) / 100, 2)])
 
     return crop_price
-
-# 12 Months Forecast Helper
 def TwelveMonthsForecast(name):
     current_month = datetime.now().month
     current_year = datetime.now().year
@@ -191,16 +181,11 @@ def TwelveMonthsForecast(name):
 
     return crop_price, max_val, min_val
 
-# Initialize the commodity objects
 commodity_list = [Commodity(commodity_dict[name]) for name in commodity_dict]
 
-# Streamlit UI
-
-# Sidebar for navigation
 st.sidebar.title("Commodity Price Prediction")
 st.sidebar.write("Select from the options below:")
 
-# Sidebar buttons
 if st.sidebar.button('Top 5 Winners'):
     winners = TopFiveWinners()
     st.write("### Top 5 Winners")
@@ -211,7 +196,6 @@ if st.sidebar.button('Top 5 Losers'):
     st.write("### Top 5 Losers")
     st.table(pd.DataFrame(losers, columns=["Commodity", "Price", "Change (%)"]))
 
-# Dropdown for 6 and 12 Months Forecast
 st.sidebar.header("Forecast Options")
 option = st.sidebar.selectbox("Select an option:", ["6 Months Forecast", "12 Months Forecast"])
 
